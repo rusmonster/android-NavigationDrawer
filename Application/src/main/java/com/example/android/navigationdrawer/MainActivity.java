@@ -17,12 +17,9 @@
 package com.example.android.navigationdrawer;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -38,10 +35,9 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         // Prepare list of samples in this dashboard.
         mSamples = new Sample[]{
-            new Sample(R.string.navigationdraweractivity_title, R.string.navigationdraweractivity_description,
+            new Sample(this, R.string.navigationdraweractivity_title, R.string.navigationdraweractivity_description,
                     NavigationDrawerActivity.class),
         };
 
@@ -53,7 +49,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> container, View view, int position, long id) {
-        startActivity(mSamples[position].intent);
+        startActivity(mSamples[position].getIntent());
     }
 
     private class SampleAdapter extends BaseAdapter {
@@ -80,28 +76,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             }
 
             ((TextView) convertView.findViewById(android.R.id.text1)).setText(
-                    mSamples[position].titleResId);
+                    mSamples[position].getTitleResId());
             ((TextView) convertView.findViewById(android.R.id.text2)).setText(
-                    mSamples[position].descriptionResId);
+                    mSamples[position].getDescriptionResId());
             return convertView;
-        }
-    }
-
-    private class Sample {
-        int titleResId;
-        int descriptionResId;
-        Intent intent;
-
-        private Sample(int titleResId, int descriptionResId, Intent intent) {
-            this.intent = intent;
-            this.titleResId = titleResId;
-            this.descriptionResId = descriptionResId;
-        }
-
-        private Sample(int titleResId, int descriptionResId,
-                Class<? extends Activity> activityClass) {
-            this(titleResId, descriptionResId,
-                    new Intent(MainActivity.this, activityClass));
         }
     }
 }

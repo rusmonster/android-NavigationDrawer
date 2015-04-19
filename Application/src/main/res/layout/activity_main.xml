@@ -38,4 +38,10 @@
         android:paddingBottom="@dimen/vertical_page_margin"
         android:scrollbarStyle="outsideOverlay" />
 
+	<com.example.android.navigationdrawer.MyView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="20dp"
+			android:background="#FF8080" />
+
 </LinearLayout>
